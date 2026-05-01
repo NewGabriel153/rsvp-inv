@@ -30,7 +30,7 @@
     font-weight: 400;
     margin: 0 0 14px;
     line-height: 1.45;
-    color: rgba(28, 54, 83, 0.48);
+    color: rgba(64, 2, 28, 0.48);
 }
 .map-column-wrap {
     position: relative;
@@ -76,10 +76,9 @@
     .hero .hero-content {
         padding-top: 50%;
     }
-
     .header-nav {
         position: fixed;
-        background-color: #000;
+        background-color: #40021c;
         width: 100%;
         height: 100%;
         top: 0;
@@ -327,7 +326,7 @@
         text-transform: uppercase;
         padding: 20px 0;
         display: block;
-        border-bottom: dashed 1px #4E566C;
+        border-bottom: dashed 1px #b1a99c;
     }
 
     footer ul.footer-group li {
