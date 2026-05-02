@@ -162,8 +162,13 @@ Animations
 /* ==========================================================================
 Waypoinsts
 ========================================================================== */
-.wp1, .wp2, .wp3, .wp4, .wp5, .wp6, .wp7, .wp8, .wp9 {
+.wp1, .wp2, .wp3, .wp4, .wp5, .wp6, .wp7, .wp8, .wp9, .wp10, .wp11, .wp12, .wp13, .wp14 {
   visibility: hidden
+}
+
+.wp11.animated, .wp12.animated, .wp13.animated, .wp14.animated {
+  -webkit-animation-delay: .08s;
+  animation-delay: .08s;
 }
 .wp8, .wp9 {
   -webkit-animation-delay: 0.3s;
@@ -552,12 +557,70 @@ Features-stack
 .events
 ========================================================================== */
 .events {
-  .leftcol {
-    padding-right: 100px;
-    border-right: solid 1px $keyline-color;
-  }
-  .rightcol {
-    padding-left: 100px;
+  .events-schedule {
+    .event-block {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      max-width: 38em;
+      margin-left: auto;
+      margin-right: auto;
+
+      & + .event-block {
+        margin-top: 42px;
+      }
+
+      &__icon {
+        flex: 0 0 52px;
+        width: 52px;
+        height: 52px;
+        margin-right: 20px;
+        border-radius: 50%;
+        border: 1px solid $keyline-color;
+        background-color: rgba($white-color, 0.85);
+        color: $txt-accent;
+        font-size: 21px;
+        line-height: 50px;
+        text-align: center;
+
+        .fa {
+          line-height: inherit;
+          vertical-align: middle;
+        }
+      }
+
+      &__body {
+        flex: 1;
+        text-align: left;
+        padding-top: 2px;
+
+        h5 {
+          margin-top: 0;
+          margin-bottom: 10px;
+        }
+
+        p {
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .event-block__body {
+          text-align: center;
+        }
+
+        .event-block__icon {
+          margin-right: 0;
+          margin-bottom: 16px;
+        }
+      }
+    }
   }
 
   .time {
@@ -565,6 +628,124 @@ Features-stack
     font-style: italic;
     text-transform: lowercase;
     color: $txt-primary;
+  }
+
+  .gentle-reminders-row {
+    padding-top: 0;
+  }
+
+  .gentle-reminders {
+    border-top: 1px solid $keyline-color;
+    padding-top: 48px;
+    margin-top: 0;
+
+    &-intro {
+      margin-bottom: 36px;
+    }
+
+    &-title {
+      padding-bottom: 14px;
+      margin-top: 0;
+
+      &__icon {
+        display: inline-block;
+        margin-right: 8px;
+        color: $txt-accent;
+
+        .fa {
+          vertical-align: -1px;
+        }
+      }
+    }
+
+    &-lede {
+      margin-bottom: 0;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 36em;
+      line-height: 1.65;
+      color: rgba($txt-primary, 0.88);
+      font-style: italic;
+    }
+
+    a {
+      color: $txt-accent;
+      text-decoration: underline;
+
+      &:hover {
+        color: darken($txt-accent, 8%);
+      }
+    }
+
+    .gentle-reminder-item {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      max-width: 38em;
+      margin-left: auto;
+      margin-right: auto;
+
+      & + .gentle-reminder-item {
+        margin-top: 34px;
+      }
+
+      &__icon {
+        flex: 0 0 52px;
+        width: 52px;
+        height: 52px;
+        margin-right: 20px;
+        border-radius: 50%;
+        border: 1px solid $keyline-color;
+        background-color: rgba($white-color, 0.85);
+        color: $txt-accent;
+        font-size: 21px;
+        line-height: 50px;
+        text-align: center;
+
+        .fa {
+          line-height: inherit;
+          vertical-align: middle;
+        }
+      }
+
+      &__body {
+        flex: 1;
+        text-align: left;
+        padding-top: 2px;
+      }
+
+      &__heading {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-weight: $semibold;
+        color: $txt-primary;
+      }
+
+      p {
+        margin-bottom: 14px;
+        line-height: 1.65;
+        font-size: 15px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .gentle-reminder-item__body {
+          text-align: center;
+        }
+
+        .gentle-reminder-item__icon {
+          margin-right: 0;
+          margin-bottom: 16px;
+        }
+      }
+    }
   }
 }
 

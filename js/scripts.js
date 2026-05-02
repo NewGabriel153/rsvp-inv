@@ -47,6 +47,31 @@ $(document).ready(function () {
     }, {
         offset: '75%'
     });
+    $('.wp10').waypoint(function () {
+        $('.wp10').addClass('animated fadeInDown');
+    }, {
+        offset: '85%'
+    });
+    $('.wp11').waypoint(function () {
+        $('.wp11').addClass('animated fadeInLeft');
+    }, {
+        offset: '85%'
+    });
+    $('.wp12').waypoint(function () {
+        $('.wp12').addClass('animated fadeInRight');
+    }, {
+        offset: '85%'
+    });
+    $('.wp13').waypoint(function () {
+        $('.wp13').addClass('animated fadeInLeft');
+    }, {
+        offset: '85%'
+    });
+    $('.wp14').waypoint(function () {
+        $('.wp14').addClass('animated fadeInRight');
+    }, {
+        offset: '85%'
+    });
 
     /***************** Initiate Flexslider ******************/
     $('.flexslider').flexslider({
