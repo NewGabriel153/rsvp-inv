@@ -65,6 +65,12 @@ $(document).ready(function () {
         height: 800
     });
 
+    /***************** Engagement pics masonry (random tile ratios) ******************/
+    var engPicsRatios = ['2 / 3', '3 / 4', '4 / 5', '5 / 6', '9 / 16', '1 / 1', '4 / 3', '5 / 4', '3 / 2'];
+    $('.eng-pics-masonry-item').each(function () {
+        this.style.setProperty('--eng-aspect', engPicsRatios[Math.floor(Math.random() * engPicsRatios.length)]);
+    });
+
     /***************** Tooltips ******************/
     $('[data-toggle="tooltip"]').tooltip();
 
