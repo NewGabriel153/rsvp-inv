@@ -1,77 +1,78 @@
 $(document).ready(function () {
 
-    /***************** Waypoints ******************/
+    /***************** Scroll-triggered reveals (IntersectionObserver is reliable on iOS/Android; Waypoints scroll math often misses on mobile Safari) ******************/
 
-    $('.wp1').waypoint(function () {
-        $('.wp1').addClass('animated fadeInLeft');
-    }, {
-        offset: '75%'
-    });
-    $('.wp2').waypoint(function () {
-        $('.wp2').addClass('animated fadeInRight');
-    }, {
-        offset: '75%'
-    });
-    $('.wp3').waypoint(function () {
-        $('.wp3').addClass('animated fadeInLeft');
-    }, {
-        offset: '75%'
-    });
-    $('.wp4').waypoint(function () {
-        $('.wp4').addClass('animated fadeInRight');
-    }, {
-        offset: '75%'
-    });
-    $('.wp5').waypoint(function () {
-        $('.wp5').addClass('animated fadeInLeft');
-    }, {
-        offset: '75%'
-    });
-    $('.wp6').waypoint(function () {
-        $('.wp6').addClass('animated fadeInRight');
-    }, {
-        offset: '75%'
-    });
-    $('.wp7').waypoint(function () {
-        $('.wp7').addClass('animated fadeInUp');
-    }, {
-        offset: '75%'
-    });
-    $('.wp8').waypoint(function () {
-        $('.wp8').addClass('animated fadeInLeft');
-    }, {
-        offset: '75%'
-    });
-    $('.wp9').waypoint(function () {
-        $('.wp9').addClass('animated fadeInRight');
-    }, {
-        offset: '75%'
-    });
-    $('.wp10').waypoint(function () {
-        $('.wp10').addClass('animated fadeInDown');
-    }, {
-        offset: '85%'
-    });
-    $('.wp11').waypoint(function () {
-        $('.wp11').addClass('animated fadeInLeft');
-    }, {
-        offset: '85%'
-    });
-    $('.wp12').waypoint(function () {
-        $('.wp12').addClass('animated fadeInRight');
-    }, {
-        offset: '85%'
-    });
-    $('.wp13').waypoint(function () {
-        $('.wp13').addClass('animated fadeInLeft');
-    }, {
-        offset: '85%'
-    });
-    $('.wp14').waypoint(function () {
-        $('.wp14').addClass('animated fadeInRight');
-    }, {
-        offset: '85%'
-    });
+    function addRevealClasses(el, classString) {
+        $.each(classString.split(/\s+/), function (_, cls) {
+            if (cls) el.classList.add(cls);
+        });
+    }
+
+    function rootMarginFromWaypointPercent(pct) {
+        var bottomInset = pct === '85%' ? '15%' : '25%';
+        return '0px 0px -' + bottomInset + ' 0px';
+    }
+
+    (function initScrollRevealAnimations() {
+        var steps = [
+            { sel: '.wp1', cls: 'animated fadeInLeft', offset: '75%' },
+            { sel: '.wp2', cls: 'animated fadeInRight', offset: '75%' },
+            { sel: '.wp3', cls: 'animated fadeInLeft', offset: '75%' },
+            { sel: '.wp4', cls: 'animated fadeInRight', offset: '75%' },
+            { sel: '.wp5', cls: 'animated fadeInLeft', offset: '75%' },
+            { sel: '.wp6', cls: 'animated fadeInRight', offset: '75%' },
+            { sel: '.wp7', cls: 'animated fadeInUp', offset: '75%' },
+            { sel: '.wp8', cls: 'animated fadeInLeft', offset: '75%' },
+            { sel: '.wp9', cls: 'animated fadeInRight', offset: '75%' },
+            { sel: '.wp10', cls: 'animated fadeInDown', offset: '85%' },
+            { sel: '.wp11', cls: 'animated fadeInLeft', offset: '85%' },
+            { sel: '.wp12', cls: 'animated fadeInRight', offset: '85%' },
+            { sel: '.wp13', cls: 'animated fadeInLeft', offset: '85%' },
+            { sel: '.wp14', cls: 'animated fadeInRight', offset: '85%' }
+        ];
+
+        var useIo = typeof window.IntersectionObserver === 'function';
+
+        $.each(steps, function (_, step) {
+            var nodes = document.querySelectorAll(step.sel);
+
+            if (!nodes.length) {
+                return;
+            }
+
+            if (useIo) {
+                var observer = new window.IntersectionObserver(function (entries, obs) {
+                    $.each(entries, function (_, entry) {
+                        if (!entry.isIntersecting) return;
+                        addRevealClasses(entry.target, step.cls);
+                        obs.unobserve(entry.target);
+                    });
+                }, {
+                    root: null,
+                    rootMargin: rootMarginFromWaypointPercent(step.offset),
+                    threshold: 0
+                });
+                $.each(nodes, function (_, node) {
+                    observer.observe(node);
+                });
+                return;
+            }
+
+            $(step.sel).waypoint(function () {
+                addRevealClasses(this.element, step.cls);
+                this.destroy();
+            }, {
+                offset: step.offset
+            });
+        });
+
+        $(window).on('load orientationchange', function () {
+            if (typeof Waypoint !== 'undefined') {
+                Waypoint.refreshAll();
+            }
+        });
+
+    })();
 
     /***************** Initiate Flexslider ******************/
     $('.flexslider').flexslider({
