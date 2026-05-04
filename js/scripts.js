@@ -243,8 +243,32 @@ $(document).ready(function () {
 
 
     /********************** RSVP **********************/
+    var RSVP_SESSION_KEY = 'wedding_rsvp_submitted';
+
+    function disableRsvpForm() {
+        var $form = $('#rsvp-form');
+        $form.find('input, textarea, select, button').prop('disabled', true);
+        $form.addClass('rsvp-form--submitted');
+        $('#rsvp-thanks-message').addClass('is-visible');
+    }
+
+    function rsvpMarkedSubmittedThisSession() {
+        try {
+            return sessionStorage.getItem(RSVP_SESSION_KEY) === '1';
+        } catch (ignore) {
+            return false;
+        }
+    }
+
+    if (rsvpMarkedSubmittedThisSession()) {
+        disableRsvpForm();
+    }
+
     $('#rsvp-form').on('submit', function (e) {
         e.preventDefault();
+        if (rsvpMarkedSubmittedThisSession()) {
+            return;
+        }
         var data = $(this).serialize();
 
         $('#alert-wrapper').html(alert_markup('info', '<strong>Just a sec!</strong> We are saving your details.'));
@@ -260,6 +284,11 @@ $(document).ready(function () {
                         $('#alert-wrapper').html(alert_markup('danger', data.message));
                     } else {
                         $('#alert-wrapper').html('');
+                        try {
+                            sessionStorage.setItem(RSVP_SESSION_KEY, '1');
+                        } catch (ignore) {
+                        }
+                        disableRsvpForm();
                         $('#rsvp-modal').modal('show');
                     }
                 })

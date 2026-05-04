@@ -1096,7 +1096,27 @@ RSVP form
 ========================================================================== */
 .rsvp {
   padding-bottom: 140px;
+
+  .rsvp-thanks-message {
+    display: none;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: rgba(64, 2, 28, 0.82);
+    margin: 0 0 18px;
+    letter-spacing: 0.02em;
+
+    &.is-visible {
+      display: block;
+    }
+  }
+
   .rsvp-form {
+    &.rsvp-form--submitted {
+      opacity: 0.55;
+      transition: opacity 0.3s ease;
+    }
+
     .rsvp-btn {
       padding: 15px 0;
       border-radius: 3px;
@@ -1135,6 +1155,10 @@ RSVP form
         transform: translateY(-50%);
         margin-left: 20px;
       }
+      &.form-input-group--textarea {
+        height: auto;
+        min-height: 88px;
+      }
       input {
         padding-left: 68px;
         width: 100%;
@@ -1147,16 +1171,34 @@ RSVP form
         font-weight: 500;
         font-size: 16px;
       }
-      input::-webkit-input-placeholder {
+      textarea {
+        padding: 14px 12px 14px 68px;
+        width: 100%;
+        min-height: 88px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        border: none;
+        color: rgba(64,2,28);
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.45;
+        resize: vertical;
+      }
+      input::-webkit-input-placeholder,
+      textarea::-webkit-input-placeholder {
         color: $form-placeholder;
       }
-      input:-moz-placeholder {
+      input:-moz-placeholder,
+      textarea:-moz-placeholder {
         color: $form-placeholder;
       }
-      input::-moz-placeholder {
+      input::-moz-placeholder,
+      textarea::-moz-placeholder {
         color: $form-placeholder;
       }
-      input:-ms-input-placeholder {
+      input:-ms-input-placeholder,
+      textarea:-ms-input-placeholder {
         color: $form-placeholder;
       }
     }
@@ -1262,23 +1304,68 @@ Dress code modal — palette swatches
     0 2px 6px rgba(64, 2, 28, 0.12),
     inset 0 0 0 1px rgba(64, 2, 28, 0.06);
 }
-.dress-code-swatch--primary {
-  background-color: $color-primary;
+// Named weekend palette (modal swatches only — not tied to global theme variables)
+.dress-code-swatch--burgundy {
+  background-color: #5c1a32;
 }
-.dress-code-swatch--secondary {
-  background-color: $color-secondary;
+.dress-code-swatch--dusty-pink {
+  background-color: #c9a5a5;
 }
-.dress-code-swatch--tertiary {
-  background-color: $color-tertiary;
-}
-.dress-code-swatch--highlight {
-  background-color: $color-highlight;
+.dress-code-swatch--champagne {
+  background-color: #e8d4bc;
   box-shadow:
-    0 2px 6px rgba(64, 2, 28, 0.08),
-    inset 0 0 0 1px mix($color-tertiary, #fff, 22%);
+    0 2px 6px rgba(64, 2, 28, 0.1),
+    inset 0 0 0 1px rgba(64, 2, 28, 0.08);
 }
-.dress-code-swatch--deep-rose {
-  background-color: $color-deep-rose;
+.dress-code-swatch--beige {
+  background-color: #F3EDE0;
+}
+
+.dress-code-samples {
+  margin: 8px 0 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $keyline-color;
+}
+.dress-code-samples__intro {
+  font-size: 14px;
+  color: $txt-primary;
+  line-height: 1.45;
+  margin: 0 0 16px;
+  text-align: center;
+  padding: 0 8px;
+}
+.dress-code-samples .row {
+  margin-left: -8px;
+  margin-right: -8px;
+}
+.dress-code-samples [class*='col-'] {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.dress-code-samples figure {
+  margin: 0 0 16px;
+}
+.dress-code-samples img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(64, 2, 28, 0.1);
+}
+.dress-code-samples figcaption {
+  font-size: 11px;
+  color: $txt-accent;
+  text-align: center;
+  margin-top: 8px;
+  line-height: 1.35;
+}
+.dress-code-samples figcaption a {
+  color: $txt-accent;
+  text-decoration: underline;
+}
+.dress-code-samples figcaption a:hover,
+.dress-code-samples figcaption a:focus {
+  color: mix($txt-accent, $color-primary, 70%);
 }
 .dress-code-swatch__name {
   display: block;
